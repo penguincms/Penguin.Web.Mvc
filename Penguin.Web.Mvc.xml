@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Penguin.Web.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Penguin.Web.Mvc.Attributes.IsLocalAttribute">
+            <summary>
+            Throws a security exception if the connection calling the action is not local
+            </summary>
+        </member>
+        <member name="T:Penguin.Web.Mvc.ViewRenderService">
+            <summary>
+            Contains a method to render a view to an HTML string representation
+            </summary>
+        </member>
+        <member name="M:Penguin.Web.Mvc.ViewRenderService.#ctor(Microsoft.AspNetCore.Mvc.Razor.IRazorViewEngine,Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider,System.IServiceProvider)">
+            <summary>
+            Constructs a new instance of the view render service
+            </summary>
+            <param name="razorViewEngine">A view engine implementation</param>
+            <param name="tempDataProvider">A temp data provider</param>
+            <param name="serviceProvider">A service provider for injection</param>
+        </member>
+        <member name="M:Penguin.Web.Mvc.ViewRenderService.RenderToStringAsync(System.String,System.String,System.Object,System.Boolean)">
+            <summary>
+            Renders a view by path, to an HTML string
+            </summary>
+            <param name="viewName">The name/path of the view</param>
+            <param name="ExecutingPath">The executing path of the context in which its being requested</param>
+            <param name="model">The model to pass into the view</param>
+            <param name="Get">Used to determine whether or not the underlying FindView uses FindView or GetView</param>
+            <returns>A task containing the result of an async rendering of an MVC view</returns>
+        </member>
+    </members>
+</doc>
