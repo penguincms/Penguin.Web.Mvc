@@ -4,6 +4,9 @@ using System.IO;
 
 namespace Penguin.Web.Mvc
 {
+    /// <summary>
+    /// Captures an HTTP response to a string
+    /// </summary>
     public class ResponseCapture : IDisposable
     {
         #region Fields
@@ -16,6 +19,10 @@ namespace Penguin.Web.Mvc
 
         #region Constructors
 
+        /// <summary>
+        /// Constructs the class using the given response
+        /// </summary>
+        /// <param name="response">The response to capture</param>
         public ResponseCapture(HttpResponse response)
         {
             this.response = response;
@@ -28,6 +35,9 @@ namespace Penguin.Web.Mvc
 
         #region Methods
 
+        /// <summary>
+        /// Disposes of the capture and releases resources
+        /// </summary>
         public void Dispose()
         {
             if (this.localWriter != null)
@@ -38,6 +48,10 @@ namespace Penguin.Web.Mvc
             }
         }
 
+        /// <summary>
+        /// Converts the resposne to a string
+        /// </summary>
+        /// <returns>The response as a string</returns>
         public override string ToString()
         {
             using (TextReader tr = new StreamReader(this.localWriter))

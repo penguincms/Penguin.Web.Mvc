@@ -10,10 +10,21 @@ using System.Threading.Tasks;
 
 namespace Penguin.Web.Mvc.Extensions
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class ControllerExtensions
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         #region Methods
 
+        /// <summary>
+        /// Renders the view to a string
+        /// </summary>
+        /// <typeparam name="TModel">The object model type</typeparam>
+        /// <param name="controller">The current controller</param>
+        /// <param name="viewName">The view name</param>
+        /// <param name="model">The view model</param>
+        /// <param name="partial">True if the view is a partial</param>
+        /// <returns>A task that will contain the result of the render</returns>
         public static async Task<string> RenderViewAsync<TModel>(this Controller controller, string viewName, TModel model, bool partial = false)
         {
             if (string.IsNullOrEmpty(viewName))
