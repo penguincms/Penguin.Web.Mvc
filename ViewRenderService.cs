@@ -74,6 +74,11 @@ namespace Penguin.Web.Mvc
 
                 if (viewResult.View == null)
                 {
+                    if(ExecutingPath.Contains("\\"))
+                    {
+                        throw new ArgumentNullException($"{viewName} does not match any available view. Additionally your path contains the characters \"\\\". Are you sure you didn't mean \"/\"?");
+                    }
+
                     throw new ArgumentNullException($"{viewName} does not match any available view");
                 }
 
