@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 using System.IO;
 using System.Threading.Tasks;
-using Penguin.DependencyInjection.Abstractions.Interfaces;
 using Penguin.DependencyInjection.Abstractions.Attributes;
-using Microsoft.Extensions.DependencyInjection;
+using Penguin.DependencyInjection.Abstractions.Enums;
 
 namespace Penguin.Web.Mvc
 {
