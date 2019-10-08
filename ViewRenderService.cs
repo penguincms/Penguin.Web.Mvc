@@ -11,13 +11,16 @@ using Microsoft.AspNetCore.Routing;
 using System.IO;
 using System.Threading.Tasks;
 using Penguin.DependencyInjection.Abstractions.Interfaces;
+using Penguin.DependencyInjection.Abstractions.Attributes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Penguin.Web.Mvc
 {
     /// <summary>
     /// Contains a method to render a view to an HTML string representation
     /// </summary>
-    public class ViewRenderService : IViewRenderService, ISelfRegistering
+    [Register(ServiceLifetime.Scoped, typeof(IViewRenderService))]
+    public class ViewRenderService : IViewRenderService
     {
         #region Constructors
 
