@@ -46,7 +46,17 @@ namespace Penguin.Web.Mvc.Extensions
         /// </summary>
         /// <param name="request">The request to get the referer for</param>
         /// <returns>The referer</returns>
-        public static Uri Referer(this HttpRequest request) => new Uri(request.Headers["Referer"].ToString());
+        public static Uri Referer(this HttpRequest request) {
+
+            string referer = request?.Headers["Referer"];
+
+            if (string.IsNullOrWhiteSpace(referer))
+            {
+                return null;
+            }
+
+            return new Uri(referer);
+        }
 
         /// <summary>
         /// Gets the full request Url
