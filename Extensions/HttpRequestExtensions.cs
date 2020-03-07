@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace Penguin.Web.Mvc.Extensions
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class HttpRequestExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
@@ -46,8 +45,8 @@ namespace Penguin.Web.Mvc.Extensions
         /// </summary>
         /// <param name="request">The request to get the referer for</param>
         /// <returns>The referer</returns>
-        public static Uri Referer(this HttpRequest request) {
-
+        public static Uri Referer(this HttpRequest request)
+        {
             string referer = request?.Headers["Referer"];
 
             if (string.IsNullOrWhiteSpace(referer))
@@ -63,7 +62,10 @@ namespace Penguin.Web.Mvc.Extensions
         /// </summary>
         /// <param name="request">The request to check</param>
         /// <returns>The request Url</returns>
-        public static Uri Url(this HttpRequest request) => new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
+        public static Uri Url(this HttpRequest request)
+        {
+            return new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
+        }
 
         #endregion Methods
     }

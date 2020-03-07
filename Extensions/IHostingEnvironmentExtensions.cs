@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace Penguin.Web.Mvc.Extensions
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
     public static class IHostingEnvironmentExtensions
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
@@ -28,7 +26,10 @@ namespace Penguin.Web.Mvc.Extensions
         /// <param name="hostingEnvironment">The current hosting environment</param>
         /// <param name="virtualPath">The path to map</param>
         /// <returns>The absolute mapped path</returns>
-        public static string MapApplication(this IHostingEnvironment hostingEnvironment, string virtualPath) => Map(hostingEnvironment.ContentRootPath, virtualPath);
+        public static string MapApplication(this IHostingEnvironment hostingEnvironment, string virtualPath)
+        {
+            return Map(hostingEnvironment.ContentRootPath, virtualPath);
+        }
 
         /// <summary>
         /// Maps the path to the content root path
@@ -36,7 +37,10 @@ namespace Penguin.Web.Mvc.Extensions
         /// <param name="hostingEnvironment">The current hosting environment</param>
         /// <param name="virtualPath">The path to map</param>
         /// <returns>The absolute mapped path</returns>
-        public static string MapPath(this IHostingEnvironment hostingEnvironment, string virtualPath) => hostingEnvironment.MapApplication(virtualPath);
+        public static string MapPath(this IHostingEnvironment hostingEnvironment, string virtualPath)
+        {
+            return hostingEnvironment.MapApplication(virtualPath);
+        }
 
         /// <summary>
         /// Maps the path to the www root path
@@ -44,13 +48,16 @@ namespace Penguin.Web.Mvc.Extensions
         /// <param name="hostingEnvironment">The current hosting environment</param>
         /// <param name="virtualPath">The path to map</param>
         /// <returns>The absolute mapped path</returns>
-        public static string MapPublic(this IHostingEnvironment hostingEnvironment, string virtualPath) => Map(hostingEnvironment.WebRootPath, virtualPath);
+        public static string MapPublic(this IHostingEnvironment hostingEnvironment, string virtualPath)
+        {
+            return Map(hostingEnvironment.WebRootPath, virtualPath);
+        }
 
         private static string Map(string root, string virtualPath)
         {
             string toReturn = virtualPath;
 
-            if (virtualPath.StartsWith("~"))
+            if (virtualPath[0] == '~')
             {
                 toReturn = new FileInfo(Path.Combine(root, virtualPath.Substring(2))).FullName;
             }

@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Penguin.Web.Mvc.Abstractions;
-using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using System.IO;
-using System.Threading.Tasks;
 using Penguin.DependencyInjection.Abstractions.Attributes;
 using Penguin.DependencyInjection.Abstractions.Enums;
+using Penguin.Web.Mvc.Abstractions;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Penguin.Web.Mvc
 {
@@ -33,9 +33,9 @@ namespace Penguin.Web.Mvc
             ITempDataProvider tempDataProvider,
             IServiceProvider serviceProvider)
         {
-            _razorViewEngine = razorViewEngine;
-            _tempDataProvider = tempDataProvider;
-            _serviceProvider = serviceProvider;
+            this._razorViewEngine = razorViewEngine;
+            this._tempDataProvider = tempDataProvider;
+            this._serviceProvider = serviceProvider;
         }
 
         #endregion Constructors
@@ -61,22 +61,22 @@ namespace Penguin.Web.Mvc
 
                 if (!Get)
                 {
-                    viewResult = _razorViewEngine.FindView(actionContext, viewName, false);
+                    viewResult = this._razorViewEngine.FindView(actionContext, viewName, false);
                 }
                 else
                 {
-                    viewResult = _razorViewEngine.GetView("", viewName, false);
+                    viewResult = this._razorViewEngine.GetView("", viewName, false);
 
                     //We dont know 100% where we are even executing from so this gives us a chance to let the caller tell us
                     if (viewResult.View == null && !string.IsNullOrWhiteSpace(ExecutingPath))
                     {
-                        viewResult = _razorViewEngine.GetView(ExecutingPath, viewName, false);
+                        viewResult = this._razorViewEngine.GetView(ExecutingPath, viewName, false);
                     }
                 }
 
                 if (viewResult.View == null)
                 {
-                    if(ExecutingPath.Contains("\\"))
+                    if (ExecutingPath.Contains("\\"))
                     {
                         throw new ArgumentNullException($"{viewName} does not match any available view. Additionally your path contains the characters \"\\\". Are you sure you didn't mean \"/\"?");
                     }
@@ -93,7 +93,7 @@ namespace Penguin.Web.Mvc
                     actionContext,
                     viewResult.View,
                     viewDictionary,
-                    new TempDataDictionary(actionContext.HttpContext, _tempDataProvider),
+                    new TempDataDictionary(actionContext.HttpContext, this._tempDataProvider),
                     sw,
                     new HtmlHelperOptions()
                 );
