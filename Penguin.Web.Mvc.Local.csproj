@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/penguincms/Penguin.Web.Mvc</PackageProjectUrl>
+    <Version>2.0.4</Version>
+    <Description>MVC specific tools and components used by penguin services, to help ease accomplishment of common tasks (ex rendering views to strings)</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Penguin.Web.Mvc</AssemblyName>
+    <RootNamespace>Penguin.Web.Mvc</RootNamespace>
+    <DocumentationFile>Penguin.Web.Mvc.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <ProjectReference Include="..\Penguin.DependencyInjection.Abstractions\Penguin.DependencyInjection.Abstractions.Local.csproj" />
+    <ProjectReference Include="..\Penguin.Web.Mvc.Abstractions\Penguin.Web.Mvc.Abstractions.Local.csproj" />
+  </ItemGroup>
+</Project>
