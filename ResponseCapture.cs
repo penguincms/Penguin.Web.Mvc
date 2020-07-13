@@ -25,7 +25,7 @@ namespace Penguin.Web.Mvc
         /// <param name="response">The response to capture</param>
         public ResponseCapture(HttpResponse response)
         {
-            this.response = response;
+            this.response = response ?? throw new ArgumentNullException(nameof(response));
             this.originalWriter = response.Body;
             this.localWriter = new System.IO.MemoryStream();
             response.Body = this.localWriter;

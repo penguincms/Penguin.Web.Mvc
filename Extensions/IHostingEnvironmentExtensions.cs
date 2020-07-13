@@ -28,6 +28,16 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The absolute mapped path</returns>
         public static string MapApplication(this IHostingEnvironment hostingEnvironment, string virtualPath)
         {
+            if (hostingEnvironment is null)
+            {
+                throw new System.ArgumentNullException(nameof(hostingEnvironment));
+            }
+
+            if (string.IsNullOrEmpty(virtualPath))
+            {
+                throw new System.ArgumentException("Can not evaluate empty virtual path", nameof(virtualPath));
+            }
+
             return Map(hostingEnvironment.ContentRootPath, virtualPath);
         }
 
@@ -50,6 +60,16 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The absolute mapped path</returns>
         public static string MapPublic(this IHostingEnvironment hostingEnvironment, string virtualPath)
         {
+            if (hostingEnvironment is null)
+            {
+                throw new System.ArgumentNullException(nameof(hostingEnvironment));
+            }
+
+            if (virtualPath is null)
+            {
+                throw new System.ArgumentNullException(nameof(virtualPath));
+            }
+
             return Map(hostingEnvironment.WebRootPath, virtualPath);
         }
 

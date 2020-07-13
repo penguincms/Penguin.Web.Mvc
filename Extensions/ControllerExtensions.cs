@@ -25,6 +25,11 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>A task that will contain the result of the render</returns>
         public static async Task<string> RenderViewAsync<TModel>(this Controller controller, string viewName, TModel model, bool partial = false)
         {
+            if (controller is null)
+            {
+                throw new System.ArgumentNullException(nameof(controller));
+            }
+
             if (string.IsNullOrEmpty(viewName))
             {
                 viewName = controller.ControllerContext.ActionDescriptor.ActionName;

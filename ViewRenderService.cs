@@ -52,6 +52,11 @@ namespace Penguin.Web.Mvc
         /// <returns>A task containing the result of an async rendering of an MVC view</returns>
         public async Task<string> RenderToStringAsync(string viewName, string ExecutingPath, object model, bool Get = false)
         {
+            if (ExecutingPath is null)
+            {
+                throw new ArgumentNullException(nameof(ExecutingPath));
+            }
+
             DefaultHttpContext httpContext = new DefaultHttpContext { RequestServices = _serviceProvider };
             ActionContext actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
 

@@ -39,6 +39,11 @@ namespace Penguin.Web.Mvc
         /// <param name="toParse">the route data to use to populate the instance</param>
         public RouteInfo(RouteData toParse)
         {
+            if (toParse is null)
+            {
+                throw new System.ArgumentNullException(nameof(toParse));
+            }
+
             this.Controller = toParse.Values["controller"]?.ToString();
             this.Action = toParse.Values["action"]?.ToString();
             this.Area = toParse.Values["area"] != null ? toParse.Values["area"].ToString() : string.Empty;

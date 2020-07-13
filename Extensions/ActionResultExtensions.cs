@@ -15,6 +15,16 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The result in string form</returns>
         public static string Capture(this ActionResult result, ControllerContext controllerContext)
         {
+            if (result is null)
+            {
+                throw new System.ArgumentNullException(nameof(result));
+            }
+
+            if (controllerContext is null)
+            {
+                throw new System.ArgumentNullException(nameof(controllerContext));
+            }
+
             using (ResponseCapture it = new ResponseCapture(controllerContext.HttpContext.Response))
             {
                 result.ExecuteResult(controllerContext);

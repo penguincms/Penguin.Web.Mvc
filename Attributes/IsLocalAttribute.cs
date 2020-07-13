@@ -16,6 +16,11 @@ namespace Penguin.Web.Mvc.Attributes
         public override void OnActionExecuting(ActionExecutingContext filterContext)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+            if (filterContext is null)
+            {
+                throw new System.ArgumentNullException(nameof(filterContext));
+            }
+
             bool isLocal = filterContext.HttpContext.Request.IsLocal();
 
             if (!isLocal)

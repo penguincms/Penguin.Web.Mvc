@@ -18,6 +18,11 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>True if the request is coming from localhost</returns>
         public static bool IsLocal(this HttpRequest req)
         {
+            if (req is null)
+            {
+                throw new ArgumentNullException(nameof(req));
+            }
+
             ConnectionInfo connection = req.HttpContext.Connection;
             if (connection.RemoteIpAddress != null)
             {
@@ -64,6 +69,11 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The request Url</returns>
         public static Uri Url(this HttpRequest request)
         {
+            if (request is null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             return new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
         }
 
