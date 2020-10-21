@@ -11,7 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Penguin.DependencyInjection.Abstractions" Version="5.0.1-TA2OIRX" />
-    <PackageReference Include="Penguin.Web.Mvc.Abstractions" Version="5.0.1-TA2OIRX" />
+    <PackageReference Include="Penguin.DependencyInjection.Abstractions" Version="5.0.1" />
+    <PackageReference Include="Penguin.Web.Mvc.Abstractions" Version="5.0.1" />
   </ItemGroup>
 </Project>
