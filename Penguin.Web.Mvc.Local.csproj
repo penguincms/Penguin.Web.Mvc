@@ -4,7 +4,7 @@
     <PackageProjectUrl>https://github.com/PenguinCMS/Penguin.Web.Mvc</PackageProjectUrl>
     <Version>5.0.5</Version>
     <Description>MVC specific tools and components used by penguin services, to help ease accomplishment of common tasks (ex rendering views to strings)</Description>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
     <AssemblyName>Penguin.Web.Mvc</AssemblyName>
     <RootNamespace>Penguin.Web.Mvc</RootNamespace>
     <DocumentationFile>Penguin.Web.Mvc.xml</DocumentationFile>
