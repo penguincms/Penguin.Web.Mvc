@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Penguin.DependencyInjection.Abstractions.Attributes;
 using Penguin.DependencyInjection.Abstractions.Enums;
-using Penguin.Web.Mvc.Abstractions;
+using Penguin.Web.Mvc.Abstractions.Interfaces;
 using System;
 using System.IO;
 using System.Threading.Tasks;

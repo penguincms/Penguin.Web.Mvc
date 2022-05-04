@@ -47,7 +47,10 @@ namespace Penguin.Web.Mvc.Extensions
         /// <param name="hostingEnvironment">The current hosting environment</param>
         /// <param name="virtualPath">The path to map</param>
         /// <returns>The absolute mapped path</returns>
-        public static string MapPath(this IHostingEnvironment hostingEnvironment, string virtualPath) => hostingEnvironment.MapApplication(virtualPath);
+        public static string MapPath(this IHostingEnvironment hostingEnvironment, string virtualPath)
+        {
+            return hostingEnvironment.MapApplication(virtualPath);
+        }
 
         /// <summary>
         /// Maps the path to the www root path
