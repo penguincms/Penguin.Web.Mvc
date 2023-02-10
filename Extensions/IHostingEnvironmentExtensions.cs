@@ -14,7 +14,7 @@ namespace Penguin.Web.Mvc.Extensions
         /// <summary>
         /// True if hosted on IIS
         /// </summary>
-        public static bool IsHosted => string.Compare(Process.GetCurrentProcess().ProcessName, "w3wp") == 0;
+        public static bool IsHosted => string.Equals(Process.GetCurrentProcess().ProcessName, "w3wp", System.StringComparison.Ordinal);
 
         #endregion Properties
 
@@ -28,17 +28,11 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The absolute mapped path</returns>
         public static string MapApplication(this IHostingEnvironment hostingEnvironment, string virtualPath)
         {
-            if (hostingEnvironment is null)
-            {
-                throw new System.ArgumentNullException(nameof(hostingEnvironment));
-            }
-
-            if (string.IsNullOrEmpty(virtualPath))
-            {
-                throw new System.ArgumentException("Can not evaluate empty virtual path", nameof(virtualPath));
-            }
-
-            return Map(hostingEnvironment.ContentRootPath, virtualPath);
+            return hostingEnvironment is null
+                ? throw new System.ArgumentNullException(nameof(hostingEnvironment))
+                : string.IsNullOrEmpty(virtualPath)
+                ? throw new System.ArgumentException("Can not evaluate empty virtual path", nameof(virtualPath))
+                : Map(hostingEnvironment.ContentRootPath, virtualPath);
         }
 
         /// <summary>
@@ -60,17 +54,11 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The absolute mapped path</returns>
         public static string MapPublic(this IHostingEnvironment hostingEnvironment, string virtualPath)
         {
-            if (hostingEnvironment is null)
-            {
-                throw new System.ArgumentNullException(nameof(hostingEnvironment));
-            }
-
-            if (virtualPath is null)
-            {
-                throw new System.ArgumentNullException(nameof(virtualPath));
-            }
-
-            return Map(hostingEnvironment.WebRootPath, virtualPath);
+            return hostingEnvironment is null
+                ? throw new System.ArgumentNullException(nameof(hostingEnvironment))
+                : virtualPath is null
+                ? throw new System.ArgumentNullException(nameof(virtualPath))
+                : Map(hostingEnvironment.WebRootPath, virtualPath);
         }
 
         private static string Map(string root, string virtualPath)
@@ -79,7 +67,7 @@ namespace Penguin.Web.Mvc.Extensions
 
             if (virtualPath[0] == '~')
             {
-                toReturn = new FileInfo(Path.Combine(root, virtualPath.Substring(2))).FullName;
+                toReturn = new FileInfo(Path.Combine(root, virtualPath[2..])).FullName;
             }
 
             return toReturn;

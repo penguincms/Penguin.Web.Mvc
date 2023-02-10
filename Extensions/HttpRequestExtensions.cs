@@ -26,23 +26,13 @@ namespace Penguin.Web.Mvc.Extensions
             ConnectionInfo connection = req.HttpContext.Connection;
             if (connection.RemoteIpAddress != null)
             {
-                if (connection.LocalIpAddress != null)
-                {
-                    return connection.RemoteIpAddress.Equals(connection.LocalIpAddress);
-                }
-                else
-                {
-                    return IPAddress.IsLoopback(connection.RemoteIpAddress);
-                }
+                return connection.LocalIpAddress != null
+                    ? connection.RemoteIpAddress.Equals(connection.LocalIpAddress)
+                    : IPAddress.IsLoopback(connection.RemoteIpAddress);
             }
 
             // for in memory TestServer or when dealing with default connection info
-            if (connection.RemoteIpAddress == null && connection.LocalIpAddress == null)
-            {
-                return true;
-            }
-
-            return false;
+            return connection.RemoteIpAddress == null && connection.LocalIpAddress == null;
         }
 
         /// <summary>
@@ -54,12 +44,7 @@ namespace Penguin.Web.Mvc.Extensions
         {
             string referer = request?.Headers["Referer"];
 
-            if (string.IsNullOrWhiteSpace(referer))
-            {
-                return null;
-            }
-
-            return new Uri(referer);
+            return string.IsNullOrWhiteSpace(referer) ? null : new Uri(referer);
         }
 
         /// <summary>
@@ -69,12 +54,9 @@ namespace Penguin.Web.Mvc.Extensions
         /// <returns>The request Url</returns>
         public static Uri Url(this HttpRequest request)
         {
-            if (request is null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
-
-            return new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
+            return request is null
+                ? throw new ArgumentNullException(nameof(request))
+                : new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
         }
 
         #endregion Methods

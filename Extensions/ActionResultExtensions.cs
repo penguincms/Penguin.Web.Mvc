@@ -25,11 +25,9 @@ namespace Penguin.Web.Mvc.Extensions
                 throw new System.ArgumentNullException(nameof(controllerContext));
             }
 
-            using (ResponseCapture it = new ResponseCapture(controllerContext.HttpContext.Response))
-            {
-                result.ExecuteResult(controllerContext);
-                return it.ToString();
-            }
+            using ResponseCapture it = new(controllerContext.HttpContext.Response);
+            result.ExecuteResult(controllerContext);
+            return it.ToString();
         }
     }
 }

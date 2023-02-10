@@ -26,9 +26,9 @@ namespace Penguin.Web.Mvc
         public ResponseCapture(HttpResponse response)
         {
             this.response = response ?? throw new ArgumentNullException(nameof(response));
-            this.originalWriter = response.Body;
-            this.localWriter = new System.IO.MemoryStream();
-            response.Body = this.localWriter;
+            originalWriter = response.Body;
+            localWriter = new System.IO.MemoryStream();
+            response.Body = localWriter;
         }
 
         #endregion Constructors
@@ -40,11 +40,11 @@ namespace Penguin.Web.Mvc
         /// </summary>
         public void Dispose()
         {
-            if (this.localWriter != null)
+            if (localWriter != null)
             {
-                this.localWriter.Dispose();
-                this.localWriter = null;
-                this.response.Body = this.originalWriter;
+                localWriter.Dispose();
+                localWriter = null;
+                response.Body = originalWriter;
             }
         }
 
@@ -54,10 +54,8 @@ namespace Penguin.Web.Mvc
         /// <returns>The response as a string</returns>
         public override string ToString()
         {
-            using (TextReader tr = new StreamReader(this.localWriter))
-            {
-                return tr.ReadToEnd();
-            }
+            using TextReader tr = new StreamReader(localWriter);
+            return tr.ReadToEnd();
         }
 
         #endregion Methods

@@ -34,9 +34,9 @@
         /// <param name="model">The view model</param>
         public ViewParameters(string viewName, string masterName, object model)
         {
-            this.ViewName = viewName;
-            this.MasterName = masterName;
-            this.Model = model;
+            ViewName = viewName;
+            MasterName = masterName;
+            Model = model;
         }
 
         /// <summary>
@@ -46,8 +46,8 @@
         /// <param name="model">The view model</param>
         public ViewParameters(string viewName, object model)
         {
-            this.ViewName = viewName;
-            this.Model = model;
+            ViewName = viewName;
+            Model = model;
         }
 
         #endregion Constructors

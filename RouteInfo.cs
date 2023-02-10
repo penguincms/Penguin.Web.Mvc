@@ -27,7 +27,7 @@ namespace Penguin.Web.Mvc
         /// <summary>
         /// Returns true if Area is set
         /// </summary>
-        public bool IsArea => !string.IsNullOrWhiteSpace(this.Area);
+        public bool IsArea => !string.IsNullOrWhiteSpace(Area);
 
         #endregion Properties
 
@@ -44,9 +44,9 @@ namespace Penguin.Web.Mvc
                 throw new System.ArgumentNullException(nameof(toParse));
             }
 
-            this.Controller = toParse.Values["controller"]?.ToString();
-            this.Action = toParse.Values["action"]?.ToString();
-            this.Area = toParse.Values["area"] != null ? toParse.Values["area"].ToString() : string.Empty;
+            Controller = toParse.Values["controller"]?.ToString();
+            Action = toParse.Values["action"]?.ToString();
+            Area = toParse.Values["area"] != null ? toParse.Values["area"].ToString() : string.Empty;
         }
 
         #endregion Constructors

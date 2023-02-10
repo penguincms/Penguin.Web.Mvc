@@ -33,9 +33,9 @@ namespace Penguin.Web.Mvc
             ITempDataProvider tempDataProvider,
             IServiceProvider serviceProvider)
         {
-            this._razorViewEngine = razorViewEngine;
-            this._tempDataProvider = tempDataProvider;
-            this._serviceProvider = serviceProvider;
+            _razorViewEngine = razorViewEngine;
+            _tempDataProvider = tempDataProvider;
+            _serviceProvider = serviceProvider;
         }
 
         #endregion Constructors
@@ -57,55 +57,53 @@ namespace Penguin.Web.Mvc
                 throw new ArgumentNullException(nameof(ExecutingPath));
             }
 
-            DefaultHttpContext httpContext = new DefaultHttpContext { RequestServices = _serviceProvider };
-            ActionContext actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
+            DefaultHttpContext httpContext = new() { RequestServices = _serviceProvider };
+            ActionContext actionContext = new(httpContext, new RouteData(), new ActionDescriptor());
 
-            using (StringWriter sw = new StringWriter())
+            using StringWriter sw = new();
+            Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult viewResult;
+
+            if (!Get)
             {
-                Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult viewResult;
-
-                if (!Get)
-                {
-                    viewResult = this._razorViewEngine.FindView(actionContext, viewName, false);
-                }
-                else
-                {
-                    viewResult = this._razorViewEngine.GetView("", viewName, false);
-
-                    //We dont know 100% where we are even executing from so this gives us a chance to let the caller tell us
-                    if (viewResult.View == null && !string.IsNullOrWhiteSpace(ExecutingPath))
-                    {
-                        viewResult = this._razorViewEngine.GetView(ExecutingPath, viewName, false);
-                    }
-                }
-
-                if (viewResult.View == null)
-                {
-                    if (ExecutingPath.Contains("\\"))
-                    {
-                        throw new ArgumentNullException($"{viewName} does not match any available view. Additionally your path contains the characters \"\\\". Are you sure you didn't mean \"/\"?");
-                    }
-
-                    throw new ArgumentNullException($"{viewName} does not match any available view");
-                }
-
-                ViewDataDictionary viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-                {
-                    Model = model
-                };
-
-                ViewContext viewContext = new ViewContext(
-                    actionContext,
-                    viewResult.View,
-                    viewDictionary,
-                    new TempDataDictionary(actionContext.HttpContext, this._tempDataProvider),
-                    sw,
-                    new HtmlHelperOptions()
-                );
-
-                await viewResult.View.RenderAsync(viewContext);
-                return sw.ToString();
+                viewResult = _razorViewEngine.FindView(actionContext, viewName, false);
             }
+            else
+            {
+                viewResult = _razorViewEngine.GetView("", viewName, false);
+
+                //We dont know 100% where we are even executing from so this gives us a chance to let the caller tell us
+                if (viewResult.View == null && !string.IsNullOrWhiteSpace(ExecutingPath))
+                {
+                    viewResult = _razorViewEngine.GetView(ExecutingPath, viewName, false);
+                }
+            }
+
+            if (viewResult.View == null)
+            {
+                if (ExecutingPath.Contains('\\'))
+                {
+                    throw new ArgumentNullException($"{viewName} does not match any available view. Additionally your path contains the characters \"\\\". Are you sure you didn't mean \"/\"?");
+                }
+
+                throw new ArgumentNullException($"{viewName} does not match any available view");
+            }
+
+            ViewDataDictionary viewDictionary = new(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+            {
+                Model = model
+            };
+
+            ViewContext viewContext = new(
+                actionContext,
+                viewResult.View,
+                viewDictionary,
+                new TempDataDictionary(actionContext.HttpContext, _tempDataProvider),
+                sw,
+                new HtmlHelperOptions()
+            );
+
+            await viewResult.View.RenderAsync(viewContext);
+            return sw.ToString();
         }
 
         #endregion Methods
